@@ -1,38 +1,3 @@
-" double escape clears search highlight
-nno <esc><esc> :nohlsearch<cr>
-
-function! TabIsEmpty() abort
-    " Remember which window we're in at the moment
-    let initial_win_num = winnr()
-
-    let win_count = 0
-    " Add the length of the file name on to count:
-    " this will be 0 if there is no file name
-    windo let win_count += len(expand('%'))
-
-    " Go back to the initial window
-    exe initial_win_num . "wincmd w"
-
-    " Check count
-    if win_count == 0
-        " Tab page is empty
-        return 1
-    else
-        return 0
-    endif
-endfunction
-
-function! WindowIsEmpty() abort
-  if bufname("%") == ""
-    if line('$') > 1
-      return 0
-    endif
-    return len(getline('.')) == 0
-  else
-    return 0
-  endif
-endfunction
-
 function! OpenFlog() abort
   let l:opencmd=''
   if WindowIsEmpty()
@@ -139,6 +104,14 @@ nnoremap <leader>gu :call flogmenu#open_unmerged()<CR>
 nnoremap <silent><leader>gd :call git_essentials#CommitQF()<CR>:copen<CR>
 nnoremap <leader>gD :Git add %:h<CR>
 nnoremap <leader>g/ :GitGrep<CR>
+
+nnoremap <leader>gww :call Switch_Worktree()<CR>
+nnoremap <leader>gwa :call Create_Worktree()<CR>
+
+let g:git_worktree_menu = {'name': '+Worktree',
+ \'w': 'Switch',
+ \'a': 'Create',
+ \}
 
 let g:which_key_map['g'] = {'name': '+Git',
              \'a': 'All windows',
