@@ -1,5 +1,4 @@
 lua require("telescope").load_extension("git_worktree")
-lua require('worktree_config')
 
 fu! Create_Worktree() abort
   silent execute 'Gcd'
