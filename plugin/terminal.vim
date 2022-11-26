@@ -12,21 +12,7 @@ else
   nnoremap <Leader>cs :call termhere#OpenSplitTerminal()<CR>
 endif
 
-fu! Which_key_update(key, dictionary) abort
-  if has_key(g:which_key_map, a:key)
-    let prior_name = g:which_key_map[a:key]['name']
-    let new_name = l:prior_name . '/' . a:dictionary['name'][1:]
-    for [new_key, new_value] in items(a:dictionary)
-      let g:which_key_map[a:key][new_key] = new_value
-    endfor
-    let g:which_key_map[a:key]['name'] = l:new_name
-  else
-    let g:which_key_map[a:key] = a:dictionary
-  endif
-  call which_key#register('<Space>', 'g:which_key_map')
-endfunction
-
-call Which_key_update('c', {'name': '+Terminal',
+call which_key#add_or_update('c', {'name': '+Terminal',
              \'c': 'Full window',
              \'v': 'Toggleterm',
              \'s': 'Split below',
