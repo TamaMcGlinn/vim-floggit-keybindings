@@ -1,7 +1,7 @@
 
 " Tabs
 nnoremap <leader>to :tabnew<CR>
-nnoremap <leader>tq :tabc<CR>
+nnoremap <leader>tq :call floggit#TabClose()<CR>
 nnoremap <leader>tw :bp \| bd! #<CR>
 nnoremap <leader>t, :call floggit#MoveToPrevTab()<CR>
 nnoremap <leader>t. :call floggit#MoveToNextTab()<CR>

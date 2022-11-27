@@ -1,6 +1,6 @@
 " from https://vim.fandom.com/wiki/Move_current_window_between_tabs
 
-function floggit#MoveToPrevTab()
+function! floggit#MoveToPrevTab() abort
   "there is only one window
   if tabpagenr('$') == 1 && winnr('$') == 1
     return
@@ -22,7 +22,7 @@ function floggit#MoveToPrevTab()
   exe 'b'.l:cur_buf
 endfunc
 
-function floggit#MoveToNextTab()
+function! floggit#MoveToNextTab() abort
   "there is only one window
   if tabpagenr('$') == 1 && winnr('$') == 1
     return
@@ -43,3 +43,13 @@ function floggit#MoveToNextTab()
   "opening current buffer in new window
   exe 'b'.l:cur_buf
 endfunc
+
+function! floggit#TabClose() abort
+  " Check if current tab is last tab
+  " https://vi.stackexchange.com/questions/36464/how-to-check-if-the-current-tab-is-the-last-tab
+  if tabpagenr() == tabpagenr('$')
+    quit
+  else
+    execute "tabc"
+  endif
+endfunction
