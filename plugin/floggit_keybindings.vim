@@ -113,7 +113,7 @@ let g:git_worktree_menu = {'name': '+Worktree',
  \'a': 'Create',
  \}
 
-let g:which_key_map['g'] = {'name': '+Git',
+call which_key#add_or_update('g', {'name': '+Git',
              \'a': 'All windows',
              \'s': 'Status',
              \'S': 'Signify reset',
@@ -144,8 +144,9 @@ let g:which_key_map['g'] = {'name': '+Git',
              \'l': g:git_log_menu,
              \'/': 'Search',
              \'w': g:git_worktree_menu,
-             \}
+             \})
 
+" Ignore unasked for tcomment bindings
 let g:which_key_map['_'] = { 'name': 'which_key_ignore' }
 
 augroup DirvishSignifyOverride
