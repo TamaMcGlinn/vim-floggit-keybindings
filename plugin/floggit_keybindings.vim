@@ -1,11 +1,3 @@
-function! OpenFlog() abort
-  let l:opencmd=''
-  if WindowIsEmpty()
-    let l:opencmd='-open-cmd=edit'
-  endif
-  call flogmenu#open_git_log(l:opencmd)
-endfunction
-
 augroup flog
   autocmd FileType floggraph nno <silent> <buffer> gb :<C-U>call flog#run_command("GBrowse %(h)")<CR>
   autocmd FileType floggraph nno <silent> <buffer> gd :<C-U>call flog#run_command('call git_essentials#CommitQF("%h")')<CR>
@@ -34,7 +26,7 @@ augroup flogmenu
 augroup END
 
 " Git log
-nnoremap <silent> <leader>gll :call OpenFlog()<CR>
+nnoremap <silent> <leader>gll :call autoflog#open_flog()<CR>
 nnoremap <leader>glc :Flog<CR>
 nnoremap <leader>gls :Flogsplit -all<CR>
 nnoremap <leader>glv :vertical Flogsplit -all<CR>

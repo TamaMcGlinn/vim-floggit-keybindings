@@ -19,17 +19,6 @@ function! TabIsEmpty() abort
     endif
 endfunction
 
-function! WindowIsEmpty() abort
-  if bufname("%") == ""
-    if line('$') > 1
-      return 0
-    endif
-    return len(getline('.')) == 0
-  else
-    return 0
-  endif
-endfunction
-
 " Tab movement
 nnoremap <Leader>h :tabp<CR>
 nnoremap <Leader>l :tabn<CR>
