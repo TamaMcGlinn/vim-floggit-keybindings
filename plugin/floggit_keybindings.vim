@@ -25,18 +25,8 @@ augroup flogmenu
   autocmd FileType floggraph vno <silent> <buffer> <Leader>m :<C-U>call flogmenu#open_visual_contextmenu()<CR>
 augroup END
 
-function! s:OpenFlog() abort
-  if exists("autoflog#open_flog()")
-    call autoflog#open_flog()
-  elseif exists("flogmenu#open_flog()")
-    call flogmenu#open_flog()
-  else
-    execute ':Flog -all'
-  endif
-endfunction
-
 " Git log
-nnoremap <silent> <leader>gll :call s:OpenFlog()<CR>
+nnoremap <silent> <leader>gll :call floggit#open_flog()<CR>
 nnoremap <leader>glc :Flog<CR>
 nnoremap <leader>gls :Flogsplit -all<CR>
 nnoremap <leader>glv :vertical Flogsplit -all<CR>

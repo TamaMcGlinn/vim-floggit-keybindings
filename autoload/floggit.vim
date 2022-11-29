@@ -53,3 +53,14 @@ function! floggit#TabClose() abort
     execute "tabc"
   endif
 endfunction
+
+function! floggit#open_flog() abort
+  if exists("autoflog#open_flog()")
+    call autoflog#open_flog()
+  elseif exists("flogmenu#open_flog()")
+    call flogmenu#open_flog()
+  else
+    execute ':Flog -all'
+  endif
+endfunction
+
