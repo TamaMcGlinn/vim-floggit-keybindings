@@ -55,10 +55,12 @@ function! floggit#TabClose() abort
 endfunction
 
 function! floggit#open_flog() abort
-  if exists("autoflog#open_flog()")
+  if exists("*autoflog#open_flog()")
     call autoflog#open_flog()
-  elseif exists("flogmenu#open_flog()")
-    call flogmenu#open_flog()
+  elseif exists("*flogmenu#open_git_log()")
+    " TODO this fallback doesn't work; find out why
+    " the exists call returns 0 until you have sourced the flogmenu.vim file
+    call flogmenu#open_git_log()
   else
     execute ':Flog -all'
   endif
