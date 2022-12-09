@@ -105,7 +105,7 @@ let g:git_worktree_menu = {'name': '+Worktree',
  \'a': 'Create',
  \}
 
-call which_key#add_or_update('g', {'name': '+Git',
+call floggit#update_whichkey('g', {'name': '+Git',
              \'a': 'All windows',
              \'s': 'Status',
              \'S': 'Signify reset',

@@ -12,7 +12,7 @@ else
   nnoremap <Leader>cs :call termhere#OpenSplitTerminal()<CR>
 endif
 
-call which_key#add_or_update('c', {'name': '+Terminal',
+call floggit#update_whichkey('c', {'name': '+Terminal',
              \'c': 'Full window',
              \'v': 'Toggleterm',
              \'s': 'Split below',

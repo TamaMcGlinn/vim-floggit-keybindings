@@ -8,7 +8,7 @@ nnoremap <leader>t. :call floggit#MoveToNextTab()<CR>
 nnoremap <leader>th <CR>
 nnoremap <leader>tl <CR>
 
-call which_key#add_or_update('t', {'name': '+Tabs',
+call floggit#update_whichkey('t', {'name': '+Tabs',
              \'o': 'New tab',
              \'q': 'Close tab',
              \'w': 'Close and go back',
