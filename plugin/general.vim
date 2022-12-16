@@ -3,3 +3,6 @@ nno <esc><esc> :nohlsearch<cr>
 
 " open directory of current file / terminal line
 nnoremap <silent> - :call browsedir#BrowseDir()<CR>
+
+" gq to save & quit
+nnoremap gq :wq<CR>
