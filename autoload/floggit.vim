@@ -7,7 +7,11 @@
 function! floggit#update_whichkey(key, dictionary) abort
   if has_key(g:which_key_map, a:key)
     let prior_name = g:which_key_map[a:key]['name']
-    let new_name = l:prior_name . '/' . a:dictionary['name'][1:]
+    let new_name = a:dictionary['name'][1:]
+    if stridx(l:prior_name, l:new_name) > -1
+      return
+    endif
+    let new_name = l:prior_name . '/' . new_name
     for [new_key, new_value] in items(a:dictionary)
       let g:which_key_map[a:key][new_key] = new_value
     endfor
