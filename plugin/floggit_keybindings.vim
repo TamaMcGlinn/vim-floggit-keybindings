@@ -42,8 +42,8 @@ nnoremap <leader>gl4 :Flog -format=%ad\ [%h]\ {%an}%d\ (%S)\ %s -all -path=%:h:h
 nnoremap <leader>gl5 :Flog -format=%ad\ [%h]\ {%an}%d\ (%S)\ %s -all -path=%:h:h:h:h:h<CR>
 nnoremap <leader>gl6 :Flog -format=%ad\ [%h]\ {%an}%d\ (%S)\ %s -all -path=%:h:h:h:h:h:h<CR>
 
-nnoremap <leader>co :Git restore --ours -- %<CR>
-nnoremap <leader>ct :Git restore --theirs -- %<CR>
+nnoremap <leader>co :Git restore --ours -- %<CR>:Git add -- %<CR>
+nnoremap <leader>ct :Git restore --theirs -- %<CR>:Git add -- %<CR>
 
 let g:git_log_menu = {'name': '+Log',
  \'l': 'Show git log',
@@ -94,7 +94,7 @@ nnoremap <leader>gt :GTags<CR>
 nnoremap <leader>gc :Git commit<CR>
 nnoremap <leader>gh :Git diff HEAD^<CR>
 nnoremap <leader>g. :Git add .<CR>
-nnoremap <leader>gg :Git add %<CR>
+nnoremap <leader>gg :Git add -- %<CR>
 nnoremap <leader>gu :call flogmenu#open_unmerged()<CR>
 nnoremap <silent><leader>gd :call git_essentials#CommitQF()<CR>:copen<CR>
 nnoremap <leader>gD :Git add %:h<CR>
