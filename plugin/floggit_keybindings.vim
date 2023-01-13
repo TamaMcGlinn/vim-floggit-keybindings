@@ -42,6 +42,9 @@ nnoremap <leader>gl4 :Flog -format=%ad\ [%h]\ {%an}%d\ (%S)\ %s -all -path=%:h:h
 nnoremap <leader>gl5 :Flog -format=%ad\ [%h]\ {%an}%d\ (%S)\ %s -all -path=%:h:h:h:h:h<CR>
 nnoremap <leader>gl6 :Flog -format=%ad\ [%h]\ {%an}%d\ (%S)\ %s -all -path=%:h:h:h:h:h:h<CR>
 
+nnoremap <leader>co :Git restore --ours -- %<CR>
+nnoremap <leader>ct :Git restore --theirs -- %<CR>
+
 let g:git_log_menu = {'name': '+Log',
  \'l': 'Show git log',
  \'c': 'Current branch',
