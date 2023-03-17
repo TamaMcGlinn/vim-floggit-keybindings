@@ -95,6 +95,7 @@ nnoremap <leader>gc :Git commit<CR>
 nnoremap <leader>gh :Git diff HEAD^<CR>
 nnoremap <leader>g. :Git add .<CR>
 nnoremap <leader>gg :Git add -- %<CR>
+nnoremap <leader>gC :Git checkout HEAD~1 -- %<left><left><left><left><left>
 nnoremap <leader>gu :call flogmenu#open_unmerged()<CR>
 nnoremap <silent><leader>gd :call git_essentials#CommitQF()<CR>:copen<CR>
 nnoremap <leader>gD :Git add %:h<CR>
@@ -130,6 +131,7 @@ call floggit#update_whichkey('g', {'name': '+Git',
              \'o': 'View stashes',
              \'x': 'GBrowse',
              \'c': 'Commit',
+             \'C': 'Reset to ...',
              \'h': 'Show head',
              \'.': 'Add CWD',
              \'g': 'Add file',
