@@ -81,6 +81,8 @@ nnoremap <leader>gJ :call git_essentials#Track_and_pull()<CR>
 nnoremap <leader>gk :Git push<CR>
 nnoremap <leader>gK :Git push --force-with-lease<CR>
 
+nnoremap <leader>gU :Git fetch --unshallow<CR>
+
 " stashing
 nnoremap <leader>gi :GStash<space>
 nnoremap <leader>go :GStashList<CR>
@@ -112,6 +114,7 @@ let g:git_worktree_menu = {'name': '+Worktree',
 
 call floggit#update_whichkey('g', {'name': '+Git',
              \'a': 'All windows',
+             \'U': 'Unshallow',
              \'s': 'Status',
              \'S': 'Signify reset',
              \'p': 'Signify parent',
