@@ -2,21 +2,19 @@ augroup flog
   autocmd FileType floggraph nno <silent> <buffer> gb :<C-U>call flog#run_command("GBrowse %(h)")<CR>
   autocmd FileType floggraph nno <silent> <buffer> gd :<C-U>call flog#run_command('call git_essentials#CommitQF("%h")')<CR>
 
-  autocmd FileType floggraph nno <buffer> D :<C-U>call flog#run_tmp_command('below Git diff HEAD %h')<CR>
+  autocmd FileType floggraph nno <buffer> D :<C-U>call flog#ExecTmp('below Git diff HEAD %h', v:true, v:true)<CR>
   " diff arbitrary commits in the graph using visual selection
   " regular D assumes you want to diff upwards, with the newer commit at the top
-  autocmd FileType floggraph vno <buffer> D :<C-U>call flog#run_tmp_command("below Git diff %(h'>) %(h'<)")<CR>
+  autocmd FileType floggraph vno <buffer> D :<C-U>call flog#ExecTmp("below Git diff %(h'>) %(h'<)", v:true, v:true)<CR>
   " DD is diff-down so the diff will be the opposite; what was added/remove to
   " go from the top commit to the bottom commit?
-  autocmd FileType floggraph vno <buffer> DD :<C-U>call flog#run_tmp_command("below Git diff %(h'<) %(h'>)")<CR>
+  autocmd FileType floggraph vno <buffer> DD :<C-U>call flog#ExecTmp("below Git diff %(h'<) %(h'>)", v:true, v:true)<CR>
 
   " Create partial bundle files
   autocmd FileType floggraph vno <buffer> cb :<C-U>call flog#run_command("Git bundle create " . input ("bundle> ") . " %(l'>)..%(l'<)")<CR>
   autocmd FileType floggraph nno <buffer> cb :<C-U>call flog#run_command("Git bundle create " . input ("bundle> ") . " %(h).. --branches --tags")<CR>
 
-  autocmd FileType floggraph nno <buffer> <silent> <Leader>nc :Flogjump HEAD<CR>
-
-  autocmd FileType floggraph nnoremap <buffer> <silent> <CR> :<C-U>call flog#run_tmp_command('vertical belowright Git show %h')<CR> <C-W>lG{j
+  autocmd FileType floggraph nno <buffer> <silent> <Leader>nc :<C-U>call flog#floggraph#nav#JumpToCommit(systemlist(flog#fugitive#GetGitCommand() . " rev-parse HEAD")[0][0:6])<CR>
 augroup END
 
 " Flog menu bindings
