@@ -17,7 +17,7 @@ augroup flog
   " autocmd FileType floggraph nnoremap <buffer> <silent> <CR> :<C-U>call flog#ExecTmp('vertical belowright Git show %h', v:true, v:true)<CR>
   " autocmd FileType floggraph nnoremap <buffer> <silent> <CR> :belowright Flogsplitcommit<CR>
 
-  autocmd FileType floggraph nno <buffer> <silent> <Leader>nc :<C-U>call flog#floggraph#nav#JumpToCommit(systemlist(flog#fugitive#GetGitCommand() . " rev-parse HEAD")[0][0:6])<CR>
+  autocmd FileType floggraph nno <buffer> <silent> <Leader>nc :<C-U>call flog#floggraph#nav#JumpToCommit(systemlist(flog#fugitive#GetGitCommand() . " rev-parse --short HEAD")[0])<CR>
 augroup END
 
 " Flog menu bindings
