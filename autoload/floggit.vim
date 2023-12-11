@@ -90,3 +90,6 @@ function! floggit#open_flog() abort
   endif
 endfunction
 
+function! floggit#jump_to_current_commit() abort
+  call flog#floggraph#nav#JumpToCommit(systemlist(flog#fugitive#GetGitCommand() . " rev-parse --short HEAD")[0])
+endfunction
