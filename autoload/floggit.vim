@@ -88,6 +88,7 @@ function! floggit#open_flog() abort
   else
     execute ':Flog -all'
   endif
+  call floggit#jump_to_current_commit()
 endfunction
 
 function! floggit#jump_to_current_commit() abort
