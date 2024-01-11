@@ -1,4 +1,6 @@
 augroup flog
+  autocmd FileType floggraph nno <silent> yh :<C-U>call setreg('', systemlist(flog#fugitive#GetGitCommand() . ' rev-parse ' . flog#Format("%(h)"))[0])<CR>
+
   autocmd FileType floggraph nno <silent> <buffer> gb :<C-U>call flog#ExecTmp(flog#Format("GBrowse %(h)"), 0, 1)<CR>
   autocmd FileType floggraph nno <silent> <buffer> gd :<C-U>call flog#ExecTmp('call git_essentials#CommitQF("' . flog#Format("%h") . '")')<CR>
 
