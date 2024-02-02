@@ -19,6 +19,8 @@ augroup flog
   autocmd FileType floggraph vno <buffer> cb :<C-U>call flog#ExecTmp(flog#Format("Git bundle create " . input ("bundle> ") . " %(l'>)..%(l'<)"), 0, 1)<CR>
   autocmd FileType floggraph nno <buffer> cb :<C-U>call flog#ExecTmp(flog#Format("Git bundle create " . input ("bundle> ") . " %(h).. --branches --tags"), 0, 1)<CR>
 
+  autocmd FileType floggraph nno <silent> yh :<C-U>call setreg('+', systemlist(flog#fugitive#GetGitCommand() . ' rev-parse ' . flog#Format("%(h)"))[0])<CR>
+
   autocmd FileType floggraph nno <buffer> <silent> <Leader>nc :<C-U>call floggit#jump_to_current_commit()<CR>
 augroup END
 
