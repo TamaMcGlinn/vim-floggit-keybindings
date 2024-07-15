@@ -97,7 +97,8 @@ nmap <Leader>gm <Plug>(git-messenger)
 nnoremap <leader>gB :GBranches<CR>
 nnoremap <leader>gt :GTags<CR>
 nnoremap <leader>gc :Git commit<CR>
-nnoremap <leader>gh :Git diff HEAD^<CR>
+nnoremap <leader>ghh :Git diff HEAD^<CR>
+nnoremap <leader>ghu :SignifyHunkUndo<CR>
 nnoremap <leader>g. :Git add .<CR>
 nnoremap <leader>gg :Git add -- %<CR>
 nnoremap <leader>gP :Git rebase --onto origin/master<CR>
@@ -114,6 +115,11 @@ let g:git_worktree_menu = {'name': '+Worktree',
  \'w': 'Switch',
  \'a': 'Create',
  \}
+
+let g:git_hunk_head_menu = {'name': '+Hunk / Head',
+ \'h': 'Show head',
+ \'u': 'undo hunk',
+\}
 
 call floggit#update_whichkey('g', {'name': '+Git',
              \'a': 'All windows',
@@ -138,7 +144,7 @@ call floggit#update_whichkey('g', {'name': '+Git',
              \'x': 'GBrowse',
              \'c': 'Commit',
              \'C': 'Reset to ...',
-             \'h': 'Show head',
+             \'h': g:git_hunk_head_menu,
              \'.': 'Add CWD',
              \'g': 'Add file',
              \'u': 'Open unmerged files',
