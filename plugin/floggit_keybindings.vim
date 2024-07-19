@@ -31,7 +31,7 @@ augroup flogmenu
 augroup END
 
 " Git log
-nnoremap <silent> <leader>gll :call floggit#open_flog()<CR>
+nnoremap <silent> <leader>gll :AutoFlog<CR>
 nnoremap <leader>glc :Flog<CR>
 nnoremap <leader>gls :Flogsplit -all<CR>
 nnoremap <leader>glv :vertical Flogsplit -all<CR>
