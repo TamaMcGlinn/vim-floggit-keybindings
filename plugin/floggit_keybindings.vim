@@ -1,22 +1,27 @@
 augroup flog
-  autocmd FileType floggraph nno <silent> <buffer> gb :<C-U>call flog#run_command("GBrowse %(h)")<CR>
-  autocmd FileType floggraph nno <silent> <buffer> gd :<C-U>call flog#run_command('call git_essentials#CommitQF("%h")')<CR>
+  autocmd FileType floggraph nno <silent> yh :<C-U>call setreg('', systemlist(flog#fugitive#GetGitCommand() . ' rev-parse ' . flog#Format("%(h)"))[0])<CR>
 
-  autocmd FileType floggraph nno <buffer> D :<C-U>call flog#run_tmp_command('below Git diff HEAD %h')<CR>
+  autocmd FileType floggraph nno <silent> <buffer> gb :<C-U>call flog#ExecTmp(flog#Format("GBrowse %(h)"), 0, 1)<CR>
+  autocmd FileType floggraph nno <silent> <buffer> gd :<C-U>call flog#ExecTmp('call git_essentials#CommitQF("' . flog#Format("%h") . '")')<CR>
+
+  autocmd FileType floggraph nno <buffer> D :<C-U>call flog#ExecTmp(flog#Format('below Git diff HEAD %h'), 0, 1)<CR>
+  autocmd FileType floggraph nno <buffer> D :<C-U>call flog#ExecTmp(flog#Format("below Git diff %(h'>) %(h'<)"), 0, 1)<CR>
+
   " diff arbitrary commits in the graph using visual selection
   " regular D assumes you want to diff upwards, with the newer commit at the top
-  autocmd FileType floggraph vno <buffer> D :<C-U>call flog#run_tmp_command("below Git diff %(h'>) %(h'<)")<CR>
+  autocmd FileType floggraph vno <buffer> D :<C-U>call flog#ExecTmp(flog#Format("below Git diff %(h'>) %(h'<)"), 0, 1)<CR>
+  autocmd FileType floggraph vno <buffer> D :<C-U>call flog#ExecTmp(flog#Format("below Git diff %(h'>) %(h'<)"), 0, 1)<CR>
   " DD is diff-down so the diff will be the opposite; what was added/remove to
   " go from the top commit to the bottom commit?
-  autocmd FileType floggraph vno <buffer> DD :<C-U>call flog#run_tmp_command("below Git diff %(h'<) %(h'>)")<CR>
+  autocmd FileType floggraph vno <buffer> DD :<C-U>call flog#ExecTmp(flog#Format("below Git diff %(h'<) %(h'>)"), 0, 1)<CR>
 
   " Create partial bundle files
-  autocmd FileType floggraph vno <buffer> cb :<C-U>call flog#run_command("Git bundle create " . input ("bundle> ") . " %(l'>)..%(l'<)")<CR>
-  autocmd FileType floggraph nno <buffer> cb :<C-U>call flog#run_command("Git bundle create " . input ("bundle> ") . " %(h).. --branches --tags")<CR>
+  autocmd FileType floggraph vno <buffer> cb :<C-U>call flog#ExecTmp(flog#Format("Git bundle create " . input ("bundle> ") . " %(l'>)..%(l'<)"), 0, 1)<CR>
+  autocmd FileType floggraph nno <buffer> cb :<C-U>call flog#ExecTmp(flog#Format("Git bundle create " . input ("bundle> ") . " %(h).. --branches --tags"), 0, 1)<CR>
 
-  autocmd FileType floggraph nno <buffer> <silent> <Leader>nc :Flogjump HEAD<CR>
+  autocmd FileType floggraph nno <silent> yh :<C-U>call setreg('+', systemlist(flog#fugitive#GetGitCommand() . ' rev-parse ' . flog#Format("%(h)"))[0])<CR>
 
-  autocmd FileType floggraph nnoremap <buffer> <silent> <CR> :<C-U>call flog#run_tmp_command('vertical belowright Git show %h')<CR> <C-W>lG{j
+  autocmd FileType floggraph nno <buffer> <silent> <Leader>nc :<C-U>call floggit#jump_to_current_commit()<CR>
 augroup END
 
 " Flog menu bindings
@@ -26,7 +31,7 @@ augroup flogmenu
 augroup END
 
 " Git log
-nnoremap <silent> <leader>gll :call floggit#open_flog()<CR>
+nnoremap <silent> <leader>gll :AutoFlog<CR>
 nnoremap <leader>glc :Flog<CR>
 nnoremap <leader>gls :Flogsplit -all<CR>
 nnoremap <leader>glv :vertical Flogsplit -all<CR>
@@ -94,7 +99,8 @@ nmap <Leader>gm <Plug>(git-messenger)
 nnoremap <leader>gB :GBranches<CR>
 nnoremap <leader>gt :GTags<CR>
 nnoremap <leader>gc :Git commit<CR>
-nnoremap <leader>gh :Git diff HEAD^<CR>
+nnoremap <leader>ghh :Git diff HEAD^<CR>
+nnoremap <leader>ghu :SignifyHunkUndo<CR>
 nnoremap <leader>g. :Git add .<CR>
 nnoremap <leader>gg :Git add -- %<CR>
 nnoremap <leader>gP :Git rebase --onto origin/master<CR>
@@ -111,6 +117,11 @@ let g:git_worktree_menu = {'name': '+Worktree',
  \'w': 'Switch',
  \'a': 'Create',
  \}
+
+let g:git_hunk_head_menu = {'name': '+Hunk / Head',
+ \'h': 'Show head',
+ \'u': 'undo hunk',
+\}
 
 call floggit#update_whichkey('g', {'name': '+Git',
              \'a': 'All windows',
@@ -136,7 +147,7 @@ call floggit#update_whichkey('g', {'name': '+Git',
              \'x': 'GBrowse',
              \'c': 'Commit',
              \'C': 'Reset to ...',
-             \'h': 'Show head',
+             \'h': g:git_hunk_head_menu,
              \'.': 'Add CWD',
              \'g': 'Add file',
              \'u': 'Open unmerged files',
