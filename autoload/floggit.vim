@@ -5,6 +5,9 @@
 " you get +Terminal/Tab with both mappings. If items overlap, the second
 " loaded overrides the first.
 function! floggit#update_whichkey(key, dictionary) abort
+  if !exists('g:which_key_map')
+    let g:which_key_map = {}
+  endif
   if has_key(g:which_key_map, a:key)
     let prior_name = g:which_key_map[a:key]['name']
     let new_name = a:dictionary['name'][1:]
